@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button id="btn">
+        Click me
+    </button>
+
+    <script>
+
+        const throttle = (fn, delay) => {
+            let wait = false
+
+            return function name(...args) {
+                if (wait) return
+
+                const result = fn.apply(this, args)
+
+                setTimeout(() => {
+                    wait = false
+                }, delay);
+
+                return result
+            }
+        }
+
+        const expensiveFunction = () => {
+            console.log('expensive');
+        }
+
+        const throttleFunc = throttle(expensiveFunction, 1000);
+
+        const btn = document.getElementById('btn');
+        btn.addEventListener('click', throttleFunc);
+
+    </script>
+
+</body>
+
+</html>
